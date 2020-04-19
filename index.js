@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
 const fs = require("fs");
 
-bot.login(botconfig.token);
+bot.login(process.env.token);
 
 bot.commands = new Discord.Collection();
 
@@ -21,9 +21,9 @@ for(const file of commandFiles){
 
 bot.on("message", async message => {
 
-    if(!message.content.startsWith(botconfig.prefix)) return;
+    if(!message.content.startsWith(process.env.prefix)) return;
 
-    const args = message.content.slice(botconfig.prefix.length).split(/ +/);
+    const args = message.content.slice(process.env.prefix).split(/ +/);
     const command = args.shift().toLowerCase();
 
     if(command === 'help'){
