@@ -4,7 +4,7 @@ const path = require('path');
 
 const client = new CommandoClient({
 	commandPrefix: process.env.PREFIX,
-	owner: '148978012308635649',
+	owner: process.env.OWNER,
 	unknownCommandResponse: true,
 });
 
