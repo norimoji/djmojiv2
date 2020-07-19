@@ -5,6 +5,7 @@ const discord = require('discord.js');
 const util = require('util');
 const { getVideoID } = require('ytdl-core-discord');
 const { inflateRawSync } = require('zlib');
+const { time } = require('console');
 
 const queue = new Map();
 const musicQueue = new Array();
@@ -22,13 +23,12 @@ module.exports = class play extends Command {
 			name: 'play',
 			group: 'music command',
 			memberName: 'play',
-			description: 'Play a music from local or URL',
+			description: 'Play a music from YouTube.',
 		});
 		
 	}
 
 	async run(message, source) {
-		const serverQueue = queue.get(message.guild.id)
 		const guildVoiceChannel = message.member.voice.channel;
 		
 		if(ytdl.validateURL(source)){
@@ -44,6 +44,7 @@ module.exports = class play extends Command {
 					  voiceChannel:guildVoiceChannel,
 					  voiceConnection: null,
 					  tracksQueue:[],
+					  paused: false
 					};
 					queue.set(message.guild.id,queueConstruct);
 				}
@@ -53,16 +54,19 @@ module.exports = class play extends Command {
 					 if(queue.has(message.guild.id) && queueConstruct.tracksQueue.length === 0){
 						queueConstruct.tracksQueue.push(tracks)
 						if(queue.get(message.guild.id).voiceConnection != null){
+							console.log('playing once')
 							this.playSong(message,queueConstruct.voiceConnection,queue.get(message.guild.id).tracksQueue[0])	
 						}else{
 							const connection = await guildVoiceChannel.join();
 							queueConstruct.voiceConnection = connection;
+							console.log('playing twice')
 							this.playSong(message,connection,queue.get(message.guild.id).tracksQueue[0])	
 							// const dispatcher = connection.play(await ytdl(musicQueue[0], {filter: format => ['251'],
 							// highWaterMark: 1 << 25, quality: 'highestaudio'}), {type: 'opus'})
 							// dispatcher.setVolumeLogarithmic(3 / 5);
 						}
 					}else{
+						console.log('playing three times')
 						queueConstruct.tracksQueue.push(tracks)
 					}
 				}
@@ -79,6 +83,8 @@ module.exports = class play extends Command {
 		const dispatcher = connection.play(await ytdl(queueMusic.url, {filter: format => ['251'], highWaterMark: 12 << 25, quality: 'highestaudio'}), {type: 'opus'})
 		this.client.user.setActivity(queueMusic.title);
 		dispatcher.setVolumeLogarithmic(3 / 5);
+		const Clock = dispatcher.streamTime()
+		console.log("Time" + Clock)
 
 		dispatcher.on('finish', () => {
 			queue.get(message.guild.id).tracksQueue.shift()
@@ -102,6 +108,36 @@ module.exports = class play extends Command {
 		}
 	}
 
+	pauseTrack(message){
+		if(queue.has(message.guild.id)){
+			if(queue.get(message.guild.id).paused){
+				queue.get(message.guild.id).paused = false
+				queue.get(message.guild.id).voiceConnection.dispatcher.resume()
+			}else{
+				queue.get(message.guild.id).paused = true
+				queue.get(message.guild.id).voiceConnection.dispatcher.pause(true)
+			}
+		}else{
+			message.reply("There is no bot to pause in this channel.")
+		}
+	}
+
+	intersect(message){
+		var currentTimeStamp = 0;
+		if(queue.get(message.guild.id).voiceConnection != null){
+			if(currentTimeStamp == 0){
+				console.log('intersecting')
+				currentTimeStamp = queue.get(message.guild.id).voiceConnection
+				console.log(queue.get(message.guild.id).voiceConnection.streamTime())
+				console.log(currentTimeStamp.streamTime())
+			}else{
+				var playingTrack = queue.get(message.guild.id).tracksQueue[0]+ "t=" + this.currentTimeStamp;
+				console.log(playingTrack)
+				this.playSong(message,queue.get(message.guild.id).voiceConnection,playingTrack);
+				currentTimeStamp = 0
+			}
+		}
+	}
 }
 
 

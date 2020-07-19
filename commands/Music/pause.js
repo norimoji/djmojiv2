@@ -1,19 +1,19 @@
 const { Command } = require('discord.js-commando');
 const play = require('./play');
 
-module.exports = class skip extends Command {
+module.exports = class pause extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'skip',
+			name: 'pause',
 			group: 'music command',
-			memberName: 'skip',
-			description: 'Skip track.',
+			memberName: 'pause',
+			description: 'Pause track.',
 		});
     }
 
     async run(message){
-		var skip = new play(this.client)
-		skip.skipTrack(message)
+		var pause = new play(this.client)
+		pause.pauseTrack(message)
     }
 	
 }
