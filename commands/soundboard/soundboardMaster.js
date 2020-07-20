@@ -28,6 +28,7 @@ module.exports = class soundBoard extends Command {
 		});
         
     }
+
     async run(message, source) {
         this.musicPlayer = new play(this.client)
 		const guildVoiceChannel = message.member.voice.channel;
@@ -45,7 +46,10 @@ module.exports = class soundBoard extends Command {
         }else{
             //this.musicPlayer.intersect(message)
             if(queue.get(message.guild.id).voiceConnection != null){
-                this.playSong(message,queueConstruct.voiceConnection,source)	
+                if(queue.get(message.guild.id).voiceChannel != null){
+                    queue.get(message.guild.id).voiceConnection = await queue.get(message.guild.id).voiceChannel.join(); // a better way would be to find the ClientVoiceManager-Connection array and see if the voice channel is there.
+                    this.playSong(message,queue.get(message.guild.id).voiceConnection,source)
+                }
             }else{
                 const connection = await guildVoiceChannel.join();
                 queueConstruct.voiceConnection = connection;
@@ -64,7 +68,7 @@ module.exports = class soundBoard extends Command {
 
 		dispatcher.on('finish', () => {
             //this.musicPlayer.intersect(message)
+            
 		})
 	}
-
 };
