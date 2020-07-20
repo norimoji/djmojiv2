@@ -54,19 +54,19 @@ module.exports = class play extends Command {
 					 if(queue.has(message.guild.id) && queueConstruct.tracksQueue.length === 0){
 						queueConstruct.tracksQueue.push(tracks)
 						if(queue.get(message.guild.id).voiceConnection != null){
-							console.log('playing once')
-							this.playSong(message,queueConstruct.voiceConnection,queue.get(message.guild.id).tracksQueue[0])	
+							if(queue.get(message.guild.id).voiceChannel != null){
+								queue.get(message.guild.id).voiceConnection = await queue.get(message.guild.id).voiceChannel.join(); // a better way would be to find the ClientVoiceManager-Connection array and see if the voice channel is there.
+								this.playSong(message,queue.get(message.guild.id).voiceConnection,queue.get(message.guild.id).tracksQueue[0])
+							}	
 						}else{
 							const connection = await guildVoiceChannel.join();
 							queueConstruct.voiceConnection = connection;
-							console.log('playing twice')
 							this.playSong(message,connection,queue.get(message.guild.id).tracksQueue[0])	
 							// const dispatcher = connection.play(await ytdl(musicQueue[0], {filter: format => ['251'],
 							// highWaterMark: 1 << 25, quality: 'highestaudio'}), {type: 'opus'})
 							// dispatcher.setVolumeLogarithmic(3 / 5);
 						}
 					}else{
-						console.log('playing three times')
 						queueConstruct.tracksQueue.push(tracks)
 					}
 				}
@@ -83,13 +83,13 @@ module.exports = class play extends Command {
 		const dispatcher = connection.play(await ytdl(queueMusic.url, {filter: format => ['251'], highWaterMark: 12 << 25, quality: 'highestaudio'}), {type: 'opus'})
 		this.client.user.setActivity(queueMusic.title);
 		dispatcher.setVolumeLogarithmic(3 / 5);
-		const Clock = dispatcher.streamTime()
-		console.log("Time" + Clock)
+		// const Clock = dispatcher.streamTime()
+		// console.log("Time" + Clock)
 
 		dispatcher.on('finish', () => {
 			queue.get(message.guild.id).tracksQueue.shift()
 			if(queue.get(message.guild.id).tracksQueue.length === 0){
-				this.client.user.setActivity('');
+				this.client.user.setActivity('with Development');
 				message.reply('The current music queue is empty, queue songs to continue playing.')
 			}else{
 				setTimeout(() =>{
@@ -137,6 +137,10 @@ module.exports = class play extends Command {
 				currentTimeStamp = 0
 			}
 		}
+	}
+
+	clearPlayerOnLeave(message){
+	  queue.delete(message.guild.id)
 	}
 }
 
