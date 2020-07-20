@@ -1,4 +1,6 @@
 const { Command } = require('discord.js-commando');
+const play = require('../Music/play')
+
 
 module.exports = class JoinVoiceChannelCommand extends Command {
 	constructor(client) {
@@ -16,6 +18,9 @@ module.exports = class JoinVoiceChannelCommand extends Command {
         }else if(!message.member.voice.channel){
 			return message.say('Please join the voice channel first before using this command')
         }else{
+			var player = new play(this.client)
+			player.clearPlayerOnLeave(message)
+			this.client.user.setActivity('with Development')
 			message.member.voice.channel.leave();
 		}
 	}
