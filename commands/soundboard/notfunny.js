@@ -7,7 +7,7 @@ module.exports = class meat extends Command {
 			name: 'notfunny',
 			group: 'soundboard collection',
 			memberName: 'notfunny',
-			description: 'Bot say I don't think you are funny.',
+			description: 'Bot say I do not think you are funny.',
 		});
 	}
 
