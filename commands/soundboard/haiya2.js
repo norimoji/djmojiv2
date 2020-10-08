@@ -4,9 +4,9 @@ const soundboard = require('./soundboardMaster');
 module.exports = class meat extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'haiya',
+			name: 'haiya2',
 			group: 'soundboard collection',
-			memberName: 'haiya',
+			memberName: 'haiya2',
 			description: 'Bot say haiya.',
 		});
 	}
