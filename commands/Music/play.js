@@ -82,7 +82,7 @@ module.exports = class play extends Command {
 	async playSong(message,connection, queueMusic) {
 		const dispatcher = connection.play(await ytdl(queueMusic.url, {filter: format => ['251'], highWaterMark: 12 << 25, quality: 'highestaudio'}), {type: 'opus'})
 		this.client.user.setActivity(queueMusic.title);
-		dispatcher.setVolumeLogarithmic(1 / 5);
+		dispatcher.setVolumeLogarithmic(2 / 5);
 		// const Clock = dispatcher.streamTime()
 		// console.log("Time" + Clock)
 
