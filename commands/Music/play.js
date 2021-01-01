@@ -35,8 +35,8 @@ module.exports = class play extends Command {
 			if(ytdl.getVideoID(source)){
 				const trackInfo = await ytdl.getInfo(source.toString());
 				const tracks = {
-					title:trackInfo.title,
-					url:trackInfo.video_url
+					title:trackInfo.videoDetails.title,
+					url:trackInfo.videoDetails.video_url
 				}
 				if(!queue.has(message.guild.id)){
 					queueConstruct = {
@@ -62,6 +62,7 @@ module.exports = class play extends Command {
 							const connection = await guildVoiceChannel.join();
 							queueConstruct.voiceConnection = connection;
 							this.playSong(message,connection,queue.get(message.guild.id).tracksQueue[0])	
+							console.log(queue.get(message.guild.id).tracksQueue[0])
 							// const dispatcher = connection.play(await ytdl(musicQueue[0], {filter: format => ['251'],
 							// highWaterMark: 1 << 25, quality: 'highestaudio'}), {type: 'opus'})
 							// dispatcher.setVolumeLogarithmic(3 / 5);
@@ -82,7 +83,7 @@ module.exports = class play extends Command {
 	async playSong(message,connection, queueMusic) {
 		const dispatcher = connection.play(await ytdl(queueMusic.url, {filter: format => ['251'], highWaterMark: 12 << 25, quality: 'highestaudio'}), {type: 'opus'})
 		this.client.user.setActivity(queueMusic.title);
-		dispatcher.setVolumeLogarithmic(2 / 5);
+		dispatcher.setVolumeLogarithmic(3 / 5);
 		// const Clock = dispatcher.streamTime()
 		// console.log("Time" + Clock)
 
