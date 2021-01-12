@@ -6,7 +6,7 @@ module.exports = class meat extends Command {
 		super(client, {
 			name: 'hello',
 			group: 'soundboard collection',
-			memberName: 'china',
+			memberName: 'hello',
 			description: 'Bot say Duh Hello?',
 		});
 	}
