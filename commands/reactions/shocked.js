@@ -16,6 +16,6 @@ module.exports = class meat extends Command {
 
 	run(message){
 		const shocked = new reaction(this.client)
-        shocked.run(message,'./commands/reactions/expressions/zen.gif')
+        shocked.run(message,'./commands/reactions/expressions/Zen.gif')
     }
 };
