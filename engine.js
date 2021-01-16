@@ -13,7 +13,8 @@ client.registry
 	.registerGroups([
 		['bot utility', 'Bot Utility'],
 		['music command', 'Music Command'],
-		['soundboard collection', 'Soundboard Collection']
+		['soundboard collection', 'Soundboard Collection'],
+		['reaction command', 'Reaction Command']
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands()
