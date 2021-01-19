@@ -14,6 +14,5 @@ module.exports = class nuts extends Command {
 	async run(message){
 		var playSound = new soundboard(this.client)
 		playSound.run(message,'./sounds/nuts.mp3')
-		console.log(message)
     }
 };
