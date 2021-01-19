@@ -4,9 +4,9 @@ const soundboard = require('./soundboardMaster');
 module.exports = class fucked extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'fucked',
+			name: 'fucked1',
 			group: 'soundboard collection',
-			memberName: 'fucked',
+			memberName: 'fucked1',
 			description: 'Bot say now you are fucked!',
 		});
 	}
