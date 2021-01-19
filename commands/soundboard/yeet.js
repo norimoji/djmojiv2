@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const soundboard = require('./soundboardMaster');
 
-module.exports = class yeetCommand extends Command {
+module.exports = class yeet extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'yeet',

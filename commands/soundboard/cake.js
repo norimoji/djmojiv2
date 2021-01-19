@@ -6,7 +6,7 @@ module.exports = class cake extends Command {
 		super(client, {
 			name: 'cake',
 			group: 'soundboard collection',
-			memberName: 'fucked',
+			memberName: 'cake',
 			description: 'Bot say oi that is not your cake you fat cunt!',
 		});
 	}

@@ -1,13 +1,13 @@
 const { Command } = require('discord.js-commando');
 const soundboard = require('./soundboardMaster');
 
-module.exports = class meat extends Command {
+module.exports = class nice extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'nice',
 			group: 'soundboard collection',
 			memberName: 'nice',
-			description: 'Bot make nice sounds.',
+			description: 'Bot says nice.',
 		});
 	}
 

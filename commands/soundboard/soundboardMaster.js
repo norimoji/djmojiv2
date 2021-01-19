@@ -35,14 +35,20 @@ module.exports = class soundBoard extends Command {
 		
         if(!queue.has(message.guild.id)){
             queueConstruct = {
+                channelLocation:message,
                 textChannel:message.textChannel,
                 voiceChannel:guildVoiceChannel,
                 voiceConnection: null,
             };
             queue.set(message.guild.id,queueConstruct);
         }
-        if(!guildVoiceChannel){ 
-            message.reply("Please join a voice channel to play music.");
+        if(!guildVoiceChannel){
+            try{(message.channel.send('Please join the voice channel to access soundboard function.'))
+            }
+            catch(error){
+                console.log('could not send text because of the send method')
+            }
+
         }else{
             //this.musicPlayer.intersect(message)
             if(queue.get(message.guild.id).voiceConnection != null){
