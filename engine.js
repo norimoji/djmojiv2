@@ -43,11 +43,11 @@ client.once('ready', () => {
 });
 
 client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
-	console.log(newVoiceState.selfDeaf)
-	console.log(newVoiceState.mute)
+// 	console.log(newVoiceState.selfDeaf)
+// 	console.log(newVoiceState.mute)
 	if (newVoiceState.channel) { // The member connected to a channel. 
-		if(newVoiceState.mute == false && newVoiceState.deaf == false){
-			console.log(`newMember size ` + newVoiceState.channel.members.size)
+		if(newVoiceState.mute != true && newVoiceState.deaf == false){
+// 			console.log(`newMember size ` + newVoiceState.channel.members.size)
 				if(newVoiceState.channel.members.size >=2){
 					var playSound = new soundboard(client)
 					playSound.run(newVoiceState,'./sounds/ohyeah.mp3')
