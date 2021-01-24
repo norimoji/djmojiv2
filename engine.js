@@ -46,7 +46,7 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 // 	console.log(newVoiceState.selfDeaf)
 // 	console.log(newVoiceState.mute)
 	if (newVoiceState.channel) { // The member connected to a channel. 
-		if(newVoiceState.mute != true && newVoiceState.deaf == false){
+		if(newVoiceState.mute != true && newVoiceState.deaf != true){
 // 			console.log(`newMember size ` + newVoiceState.channel.members.size)
 				if(newVoiceState.channel.members.size >=2){
 					var playSound = new soundboard(client)
