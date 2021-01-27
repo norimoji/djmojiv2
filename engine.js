@@ -42,7 +42,6 @@ client.once('ready', () => {
 });
 
 client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
-
 	if (newVoiceState.channel) { // The member connected to a channel. 
 		if(newVoiceState.selfMute == false && newVoiceState.selfDeaf == false){
 			if(oldVoiceState.selfMute == false && oldVoiceState.selfDeaf == false){
@@ -53,7 +52,7 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 			}
 		}	
 	} else if (oldVoiceState.channel) { // The member disconnected from a channel.
-		if(oldVoiceState.channel.members.size = 1 && oldVoiceState.channel.members.has(`561896933879185431`)){
+		if(oldVoiceState.channel.members.size == 1 && oldVoiceState.channel.members.has(`561896933879185431`)){
 			const activeVoiceChannel = availableServer.getMemberVoiceLocation(newVoiceState.guild.name)
 			availableServer.getBotToLeave(newVoiceState,activeVoiceChannel)	
 		}
