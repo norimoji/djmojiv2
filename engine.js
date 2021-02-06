@@ -1,10 +1,14 @@
 require('dotenv').config();
-const { VoiceChannel, DiscordAPIError } = require('discord.js');
+const { VoiceChannel, DiscordAPIError, MessageCollector, MessageFlags, Message } = require('discord.js');
 const { CommandoClient } = require('discord.js-commando');
 const { sup } = require('ffmpeg-static');
 const path = require('path');
 const soundboard = require('./commands/soundboard/soundboardMaster');
 const findUsers = require('./commands/BotUtil/findUsersInVoiceChannel');
+const setupIntro = require('./commands/BotUtil/setupIntro');
+const helpSound = require(`./commands/BotUtil/helpsound`)
+
+const fs = require('fs')
 
 const client = new CommandoClient({
 	commandPrefix: process.env.PREFIX,
@@ -23,7 +27,10 @@ client.registry
 		['reaction command', 'Reaction Command']
 	])
 	.registerDefaultGroups()
-	.registerDefaultCommands()
+	.registerDefaultCommands({
+		unknownCommand: false,
+		help: false,
+	})
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.once('ready', () => {
@@ -43,14 +50,14 @@ client.once('ready', () => {
 
 client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 	if (newVoiceState.channel) { // The member connected to a channel. 
-		if(newVoiceState.selfMute == false && newVoiceState.selfDeaf == false){
-			if(oldVoiceState.selfMute == false && oldVoiceState.selfDeaf == false){
-				if(newVoiceState.channel.members.size >=2){
-					var playSound = new soundboard(client)
-					playSound.run(newVoiceState,'./sounds/ohyeah.mp3')
-				}
+		if(newVoiceState.mute == false && newVoiceState.deaf == false){
+			if(oldVoiceState.mute == true || oldVoiceState.deaf == true){
+				
+			}else if(newVoiceState.channel.members.size >=2){
+				var playSound = new soundboard(client)
+				playSound.run(newVoiceState,'./sounds/urgae.mp3')
 			}
-		}	
+		}
 	} else if (oldVoiceState.channel) { // The member disconnected from a channel.
 		if(oldVoiceState.channel.members.size == 1 && oldVoiceState.channel.members.has(`561896933879185431`)){
 			const activeVoiceChannel = availableServer.getMemberVoiceLocation(newVoiceState.guild.name)
@@ -59,7 +66,12 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 	}
 })
 
+client.on('message', m => {
+	
+})
+
 client.on('error', console.error);
 
 client.login(process.env.BOT_TOKEN);
+
 
