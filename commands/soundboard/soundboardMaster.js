@@ -24,7 +24,8 @@ module.exports = class soundBoard extends Command {
 			name: 'soundboard',
 			group: 'soundboard collection',
 			memberName: 'soundboard',
-			description: 'Factory class',
+            description: 'Factory class',
+            ownerOnly: true
 		});
         
     }
@@ -43,6 +44,7 @@ module.exports = class soundBoard extends Command {
             queue.set(message.guild.id,queueConstruct);
         }
         if(!guildVoiceChannel){
+            // queue.get(message.guild.id).voiceChannel.cache()
             try{(message.channel.send('Please join the voice channel to access soundboard function.'))
             }
             catch(error){

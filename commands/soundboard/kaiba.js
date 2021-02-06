@@ -1,18 +1,18 @@
 const { Command } = require('discord.js-commando');
 const soundboard = require('./soundboardMaster');
 
-module.exports = class nuts extends Command {
+module.exports = class kaibaboy extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'nuts',
+			name: 'kaiba',
 			group: 'soundboard collection',
-			memberName: 'nuts',
-			description: 'Bot say deez nuts',
+			memberName: 'kaibaboy',
+			description: 'Bot say kaibaboy.',
 		});
 	}
 
 	async run(message){
 		var playSound = new soundboard(this.client)
-		playSound.run(message,'./sounds/nuts.mp3')
+        playSound.run(message,'./sounds/kaiba.mp3')
     }
 };
