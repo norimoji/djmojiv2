@@ -5,10 +5,6 @@ const { sup } = require('ffmpeg-static');
 const path = require('path');
 const soundboard = require('./commands/soundboard/soundboardMaster');
 const findUsers = require('./commands/BotUtil/findUsersInVoiceChannel');
-const setupIntro = require('./commands/BotUtil/setupIntro');
-const helpSound = require(`./commands/BotUtil/helpsound`)
-
-const fs = require('fs')
 
 const client = new CommandoClient({
 	commandPrefix: process.env.PREFIX,
