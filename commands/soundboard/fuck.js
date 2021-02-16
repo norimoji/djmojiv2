@@ -7,7 +7,7 @@ module.exports = class fuck extends Command {
 			name: 'fuck',
 			group: 'soundboard collection',
 			memberName: 'fuck',
-			description: 'Bot say Ah fuck, I can't believe you done this.',
+			description: 'Bot say Ah fuck, I cannot believe you done this.',
 		});
 	}
 
