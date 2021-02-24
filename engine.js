@@ -3,7 +3,7 @@ const { VoiceChannel, DiscordAPIError, MessageCollector, MessageFlags, Message }
 const { CommandoClient } = require('discord.js-commando');
 const { sup } = require('ffmpeg-static');
 const path = require('path');
-const soundboard = require('./commands/soundboard/soundboardMaster');
+// const soundboard = require('./commands/soundboard/soundboardMaster');
 const findUsers = require('./commands/BotUtil/findUsersInVoiceChannel');
 const mongo = require('./mongo')
 const setupIntro = require('./commands/BotUtil/setupIntro');
@@ -63,8 +63,8 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 			if(oldVoiceState.mute == true || oldVoiceState.deaf == true){
 				
 			}else if(newVoiceState.channel.members.size >=2){
-				var playSound = new soundboard(client)
-				playSound.run(newVoiceState,'./sounds/'+ setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id) +'.mp3')
+// 				var playSound = new soundboard(client)
+// 				playSound.run(newVoiceState,'./sounds/'+ setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id) +'.mp3')
 			}
 		}
 	} else if (oldVoiceState.channel) { // The member disconnected from a channel.
