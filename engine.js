@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { VoiceChannel, DiscordAPIError, MessageCollector, MessageFlags, Message } = require('discord.js');
 const { CommandoClient } = require('discord.js-commando');
 const { sup } = require('ffmpeg-static');
