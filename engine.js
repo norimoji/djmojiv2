@@ -65,7 +65,7 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 				
 			}else if(newVoiceState.channel.members.size >=2){
 				var playSound = new soundboard(client)
-				playSound.run(newVoiceState,'./commands/soundboard/sounds/'+ setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id) +'.mp3')
+				playSound.run(newVoiceState,'./sounds/'+ setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id) +'.mp3')
 				console.log('iam here')
 				console.log(setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id))
 			}
