@@ -3,7 +3,7 @@ const { VoiceChannel, DiscordAPIError, MessageCollector, MessageFlags, Message }
 const { CommandoClient } = require('discord.js-commando');
 const { sup } = require('ffmpeg-static');
 const path = require('path');
-const soundboard = require('./commands/soundboard/shutdown');
+const soundboard = require('./commands/soundboard/soundboardMaster');
 const findUsers = require('./commands/BotUtil/findUsersInVoiceChannel');
 const mongo = require('./mongo')
 const setupIntro = require('./commands/BotUtil/setupIntro');
