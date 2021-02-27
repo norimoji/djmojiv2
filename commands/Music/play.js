@@ -80,7 +80,7 @@ module.exports = class play extends Command {
 	}
 	
 
-	async playSong(message,connection, queueMusic) {
+	async playSong(message, connection, queueMusic) {
 		const dispatcher = connection.play(await ytdl(queueMusic.url, {filter: format => ['251'], highWaterMark: 12 << 25, quality: 'highestaudio'}), {type: 'opus'})
 		this.client.user.setActivity(queueMusic.title);
 		dispatcher.setVolumeLogarithmic(3 / 5);
@@ -101,11 +101,15 @@ module.exports = class play extends Command {
 	}
 
 	skipTrack(message){
-		queue.get(message.guild.id).tracksQueue.shift()
-		if(queue.get(message.guild.id).tracksQueue.length === 0){
-			message.reply('The current music queue is empty, queue songs to continue playing.')
+		if(queue.has(message.guild.id)){
+			queue.get(message.guild.id).tracksQueue.shift()
+			if(queue.get(message.guild.id).tracksQueue.length === 0){
+				message.reply('The current music queue is empty, queue songs to continue playing.')
+			}else{
+				this.playSong(message,queue.get(message.guild.id).voiceConnection,queue.get(message.guild.id).tracksQueue[0]);
+			}
 		}else{
-			this.playSong(message,queue.get(message.guild.id).voiceConnection,queue.get(message.guild.id).tracksQueue[0]);
+			message.reply("There is no tracks left to skips.")
 		}
 	}
 
@@ -138,6 +142,16 @@ module.exports = class play extends Command {
 				currentTimeStamp = 0
 			}
 		}
+	}
+
+	stopPlayer(message){
+		if(queue.has(message.guild.id)){
+			this.client.user.setActivity('with Development');
+			queue.get(message.guild.id).voiceConnection.disconnect();
+		}else{
+			message.reply("This channel has music player currently playing.")
+		}
+		queue.delete(message.guild.id)
 	}
 
 	clearPlayerOnLeave(message){
