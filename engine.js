@@ -66,8 +66,6 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 			}else if(newVoiceState.channel.members.size >=2){
 				var playSound = new soundboard(client)
 				playSound.run(newVoiceState,'./sounds/'+ setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id) +'.mp3')
-				console.log('iam here')
-				console.log(setup.getUserIntro(newVoiceState.guild.id, newVoiceState.member.id))
 			}
 		}
 	} else if (oldVoiceState.channel) { // The member disconnected from a channel.
