@@ -9,7 +9,7 @@ module.exports = class removeIntro extends Command {
 			name: 'removeintro',
 			group: 'bot utility',
 			memberName: 'removeintro',
-			description: 'remove your own custom intro'
+			description: 'Removes your current intro.'
 		});
 		}  
 		
