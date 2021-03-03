@@ -6,8 +6,8 @@ module.exports = class mistake extends Command {
 		super(client, {
 			name: 'mistake',
 			group: 'soundboard collection',
-			memberName: 'fakenews',
-			description: 'Bot says I didn't mean to shoot him, but he caught me by suprise',
+			memberName: 'mistake',
+			description: 'Bot says I did not mean to shoot him, but he caught me by suprise',
 		});
 	}
 
