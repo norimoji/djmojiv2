@@ -8,7 +8,7 @@ const mongo = require('../../mongo');
 const channels = new Map()
 const listOfChannels = []
 const setupInProgress = new Map()
-const soundboardCollection = new Map()
+const soundboardCollection = []
 
 module.exports = class setupIntro extends Command {
 	constructor(client) {
@@ -34,11 +34,14 @@ module.exports = class setupIntro extends Command {
 					message.author.send('To cancel setup type !setupintro 00.')
 				}
 			}else if(message.channel.type == 'dm'){				
-				if(message.content.substring(12) > soundboardCollection.length){
-					message.author.send('Please stay within range of 0 - ' + soundboardCollection.length)
+				var tempSoundSize = soundboardCollection.length - 1
+				if(message.content.substring(12) > tempSoundSize){
+					message.author.send('Please stay within range of 0 - ' + tempSoundSize)
 				}else if(setupInProgress.has(message.author.id) && message.content === '!setupintro 00'){
 					setupInProgress.delete(message.author.id)
 					message.author.send('!setupintro command has been cancelled, to reuse !setupintro, navigate to a server and re-enter !setupintro to begin the command.')
+				}else if(message.content === '!setupintro'){
+					message.author.send('To select type !setupintro (X) - X being a number without the brackets.')
 				}else if(setupInProgress.has(message.author.id)){
 					await mongo().then(async mongoose =>{
 						try{
@@ -48,14 +51,14 @@ module.exports = class setupIntro extends Command {
 						}, {
 							_channelId: setupInProgress.get(message.author.id),
 							_userId: message.author.id,
-							 option: message.content.substring(12)
+							 option: this.getSoundViaNumber(message.content.substring(12))
 						}, {
 							upsert: true
 						})
 						} finally {
 							mongoose.connection.close()
 							setupInProgress.delete(message.author.id)
-							message.author.send('Your new intro is now ready.')
+							message.author.send('Your new intro ' + `**` + this.getSoundViaNumber(message.content.substring(12)) + `**` + ' is now ready.')
 							this.loadsDB()
 						}
 					})
@@ -66,7 +69,7 @@ module.exports = class setupIntro extends Command {
 		}
 
 		async loadsDB(){
-			if(soundboardCollection.size === 0){
+			if(soundboardCollection.length === 0){
 				this.convertSoundboardToArray()
 			}
 			await mongo().then(async mongoose =>{
@@ -87,7 +90,7 @@ module.exports = class setupIntro extends Command {
 			listOfChannels.forEach(cursor => {
 				if(guildID === cursor[0]){
 					if(userID === cursor[1]){
-						tempValue = this.getSound(cursor[2])
+						tempValue = this.getSound(cursor[2]) //cursor[2] is a number entry _options in database.
 						return 
 					}
 				}
@@ -96,18 +99,23 @@ module.exports = class setupIntro extends Command {
 		}
 
 		convertSoundboardToArray(){
-			let counter = 0
 			this.client.registry.findGroups('soundboard collection').forEach((fields) => {
 				fields.commands.forEach(cmds => {
-					soundboardCollection.set(counter,`${cmds.name}`)
-					counter++
+					soundboardCollection.push(`${cmds.name}`)
 				})
 			})
 			console.log('Soundboard loaded')
 		}
 
-		getSound(number){
-			return soundboardCollection.get(number)
+		getSound(message){
+			let tempValue = ""
+			soundboardCollection.forEach(sound => {
+				if(sound === message){
+					tempValue = sound
+					return
+				}
+			})
+			return tempValue
 		}
 
 		async removeIntro(message){
@@ -132,17 +140,29 @@ module.exports = class setupIntro extends Command {
 				{
 					_channelId: setupInProgress.get(message.author.id),
 					_userId: message.author.id,
-					 option: message.content.substring(12)
+					 option: this.getSoundViaNumber(message.content.substring(12))
 				}, {
 					upsert: true
 				})
 				} finally {
 					mongoose.connection.close()
 					setupInProgress.delete(message.author.id)
-					message.author.send('Your new intro is now ready.')
+					message.author.send('Your new intro ' + `**` + this.getSoundViaNumber(message.content.substring(12)) + `**` + ' is now ready.')
 					this.loadsDB()
 				}
 			})
+		}
+
+		getSoundViaNumber(message){
+			let tempValue = ""
+				for(var i = 0; i < soundboardCollection.length; i++){
+					if(i === message.content){
+						break
+					}
+					tempValue = soundboardCollection[message]
+					break
+				}
+			return tempValue
 		}
 }
 	
