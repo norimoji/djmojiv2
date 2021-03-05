@@ -5,15 +5,10 @@ const setupString = {
     required: true
 }
 
-const setupNumber = {
-    type: Number,
-    require: true
-}
-
 const schema = mongoose.Schema({
     _channelId: setupString,
     _userId: setupString,
-    option: setupNumber
+    option: setupString
 })
 
 module.exports = mongoose.model('setup-intro',schema)
