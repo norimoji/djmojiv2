@@ -58,7 +58,7 @@ module.exports = class setupIntro extends Command {
 						} finally {
 							mongoose.connection.close()
 							setupInProgress.delete(message.author.id)
-							message.author.send('Your new intro ' + `**` + this.getSoundViaNumber(message.content.substring(12)) + `**` + ' is now ready.')
+							message.author.send('Your new intro ' + '**' + this.getSoundViaNumber(message.content.substring(12)) + '**' + ' is now ready.')
 							this.loadsDB()
 						}
 					})
@@ -147,7 +147,7 @@ module.exports = class setupIntro extends Command {
 				} finally {
 					mongoose.connection.close()
 					setupInProgress.delete(message.author.id)
-					message.author.send('Your new intro ' + `**` + this.getSoundViaNumber(message.content.substring(12)) + `**` + ' is now ready.')
+					message.author.send('Your new intro ' + '**' + this.getSoundViaNumber(message.content.substring(12)) + '**' + ' is now ready.')
 					this.loadsDB()
 				}
 			})
