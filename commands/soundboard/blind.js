@@ -7,7 +7,7 @@ module.exports = class blind extends Command {
 			name: 'blind',
 			group: 'soundboard collection',
 			memberName: 'blind',
-			description: 'Bot say I'm legally blind',
+			description: 'Bot say I am legally blind',
 		});
 	}
 
