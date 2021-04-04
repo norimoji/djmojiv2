@@ -7,7 +7,7 @@ module.exports = class fart1 extends Command {
 			name: 'fart1',
 			group: 'soundboard collection',
 			memberName: 'fart1',
-			description: 'Bot fart1',
+			description: 'Bot farts x6',
 		});
 	}
 
