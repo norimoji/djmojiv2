@@ -7,12 +7,12 @@ module.exports = class fart extends Command {
 			name: 'fart',
 			group: 'soundboard collection',
 			memberName: 'fart',
-			description: 'Bot farts',
+			description: 'Bot fart',
 		});
 	}
 
 	async run(message){
 		var playSound = new soundboard(this.client)
-        playSound.run(message,'./sounds/farts.mp3')
+        playSound.run(message,'./sounds/fart.mp3')
     }
 };
