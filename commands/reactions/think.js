@@ -17,6 +17,6 @@ module.exports = class think extends Command {
 	run(message){
 		const think = new reaction(this.client)
         think.run(message,'./commands/reactions/expressions/think.png')
-		message.send('Think, ' + message.content.substring(7) + ' Think!')
+		message.channel.send('Think, ' + message.content.substring(7) + ' Think!')
     }
 };
