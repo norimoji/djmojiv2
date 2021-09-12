@@ -24,7 +24,7 @@ module.exports = class setupIntro extends Command {
 			if(message.channel.type != 'dm'){
 				if(!setupInProgress.has(message.author.id))
 				{
-					message.author.send('Please select one of the custom intro from below, to select type !setupintro (X) - X being a number without the brackets.') 
+					message.author.send('Please select one of the custom intro from below with X being a number, to select intro type !setupintro X')  
 					message.author.send('To cancel this command enter !setupintro 00.')
 					var listSB = new helpsoundboard(this.client)
 					listSB.listSoundboardCommands(message)
