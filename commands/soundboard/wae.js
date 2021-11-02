@@ -13,6 +13,6 @@ module.exports = class wae extends Command {
 
 	async run(message){
 		var playSound = new soundboard(this.client)
-        playSound.run(message,'./sounds/dawae.mp3')
+        playSound.run(message,'./sounds/wae.mp3')
     }
 };
