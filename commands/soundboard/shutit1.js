@@ -6,7 +6,7 @@ module.exports = class shutit1 extends Command {
 		super(client, {
 			name: 'shutit1',
 			group: 'soundboard collection',
-			memberName: 'shutit',
+			memberName: 'shutit1',
 			description: 'Bot say shut it please + KMT!',
 		});
 	}
