@@ -77,7 +77,7 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 })
 
 client.on('message', m => {
-	if(m.toString() == 'fuck u kani'){
+	if(m.toString().toLowerCase() == 'fuck u kani'){
 		var playSound = new soundboard(client)
 				playSound.run(m,'./sounds/wet1.mp3')
 	}
