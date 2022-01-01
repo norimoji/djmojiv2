@@ -7,7 +7,7 @@ module.exports = class intro4 extends Command {
 			name: 'intro4',
 			group: 'soundboard collection',
 			memberName: 'intro4',
-			description: 'Bot plays Giorno theme song',
+			description: 'Bot plays Teriyaki Boy Tokyo Drift',
 		});
 	}
 
